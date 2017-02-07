@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Combust Documentation · GitBook</title>
+        <title>Combust Cloud · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,6 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="public-cloud/" />
+    
     
 
     </head>
@@ -90,11 +92,82 @@
                 <a href="./">
             
                     
-                    Combust Documentation
+                    Combust Cloud
             
                 </a>
             
 
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="public-cloud/">
+            
+                <a href="public-cloud/">
+            
+                    
+                    Combust Public Cloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="private-cloud/">
+            
+                <a href="private-cloud/">
+            
+                    
+                    Combust Private Cloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="clients/">
+            
+                <a href="clients/">
+            
+                    
+                    Client Libraries
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="clients/scala.html">
+            
+                <a href="clients/scala.html">
+            
+                    
+                    Scala
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="clients/python.html">
+            
+                <a href="clients/python.html">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -128,7 +201,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Combust Documentation</a>
+        <a href="." >Combust Cloud</a>
     </h1>
 </div>
 
@@ -144,14 +217,52 @@
                                 <section class="normal markdown-section">
                                 
                                 <p><img src="assets/images/combustlogo.png" alt="MLeap Logo" height="70"></p>
-<h1 id="coming-soon">Coming Soon</h1>
-<p>Combust public documentation will provide resources for working with the
-publicly-exposed Combust servers. These servers are meant as a
-demonstration of the scoring and deployment APIs provided with the
-complete Combust platform.</p>
-<p>If you subscribe with us for the full Combust platform, you will receive
-documentation for deploying your own model and training servers using our prebuilt
-Docker images.</p>
+<h1 id="combust-cloud">Combust Cloud</h1>
+<p>Combust Cloud is a platform for deploying, serving, monitoring and managing your machine learning pipelines and algorithms.</p>
+<p><code>Hidden Technical Debt in Machine Learning Systems</code> is a paper published by Google engineers that make a claim that the hardest part of AI isn&apos;t AI but rather all of the supporting systems that have to be orchestrated to support all of the data pipelines and algorithms in a production environment. We share that belief and are providing open-source libraries like <a href="http://mleap-docs.combust.ml/" target="_blank">MLeap</a> and the Combust Cloud to get teams and companies that utilize machine learning to production quicker.</p>
+<p><img src="assets/images/complexity.jpg" alt="Complexity"></p>
+<p>Our platform allows for deploying machine learning pipelines and models to:</p>
+<ul>
+<li>RESTful API Servers on any platform</li>
+<li>IoT devices</li>
+</ul>
+<h2 id="our-philosophy">Our Philosophy</h2>
+<p>There are a number of companies and platforms in the machine learning space that provide tools to Data Scientists and Machine Learning Engineers to train and publish models as services. However, majority of these products require you to migrate to their technology stack, use their tools/ui and be bound to the algorithms they support. At the speed that ML and AI frameworks are evolving, if you&apos;re binding yourself to a proprietary system, you&apos;ll always be behind.</p>
+<p>At Combust we are built on open-source technologies and our goal is to support popular ML frameworks like Spark, Scikit-Learn, TensorFlow and XgBoost. When you train and serialize a model to an MLeap Bundle, that asset is yours. When you deploy your model using <code>.deploy()</code> to a Combust Cloud instance, the core execution engine is MLeap Runtime, which is also open-sourced and is there for you to deploy on your hardware.</p>
+<h2 id="our-products">Our Products</h2>
+<h3 id="mleap">MLeap</h3>
+<p>MLeap is an open-source serialization format and execution engine for machine learning pipelines. It supports Spark, Scikit-learn and Tensorflow for training pipelines and exporting them to an MLeap Bundle. Serialized pipelines (bundles) can be deserialized back into Spark, Scikit-learn, TensorFlow graphs, or an MLeap pipeline for use in a scoring engine (API Servers).</p>
+<h3 id="combust-public-cloud">Combust Public Cloud</h3>
+<p>Combust Public Cloud is a simple hosting solution for your ML Pipelines and models. We offer hosting for a limited number of bundles per user in a shared, but secure, environment. Deploying your ML pipeline to the Public Cloud is easy:</p>
+<ol>
+<li>Sign-up on combust.com and get a user-name and a secure passcode </li>
+<li>Fit your ML Pipeline and Model in Scikit-Learn or Spark (TensorFlow coming soon)</li>
+<li>With a few lines of <code>.deploy()</code> code, your model is now a scoring service</li>
+</ol>
+<pre><code class="lang-scala"><span class="hljs-comment">// Deploy Spark&apos;s ML Pipeline to production (sparkPipelineLinearRegression)</span>
+{
+    <span class="hljs-type">Await</span>.result(sparkPipelineLinearRegression.deploy(<span class="hljs-string">&quot;http://models.combust.ml:65327&quot;</span>, 
+                                                      <span class="hljs-string">&quot;my_username&quot;</span>, 
+                                                      <span class="hljs-string">&quot;my_model_lr&quot;</span>, secure_token), <span class="hljs-number">10.</span>seconds)
+}
+</code></pre>
+<p>Read more about the Combust Public Cloud here.</p>
+<h3 id="combust-private-cloud">Combust Private Cloud</h3>
+<p>Combust Private Cloud is a personalized, containerized environment for you to deploy your ML Pipelines to. Just like the Public Cloud, we take care of the hard stuff, like:</p>
+<ul>
+<li>Managing cluster size and number of nodes needed to power your app. Our cluster solution is build on Akka and is highly scalable and performant<ul>
+<li>Load balancing is included</li>
+</ul>
+</li>
+<li>Monitoring - get access to additional tools to monitor your application</li>
+<li>Deploy unlimited number of ML Pipelines</li>
+<li>24x7 Support - our team will help you integrate with MLeap and Combust and support your application&apos;s needs</li>
+</ul>
+<p>Remember, there is no product lock-in. Your pipelines and models are available as MLeap Bundles, and serving infrsastructure is provided via dockerized containers running the open-source MLeap Runtime environment.</p>
+<p>To get started, email us at combust@combust.ml</p>
+<h3 id="combust-iot">Combust IoT</h3>
+<p>Combust IoT is a product we&apos;re incubating internally. We&apos;ve had early success with commercial clients, deploying deep learning models to embeded devices as well as drones. </p>
+<p>Have an interesting project? Let&apos;s talk, email us at combust@combust.ml</p>
 
                                 
                                 </section>
@@ -180,6 +291,10 @@ Docker images.</p>
             
                 
                 
+                <a href="public-cloud/" class="navigation navigation-next navigation-unique" aria-label="Next page: Combust Public Cloud">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
             
         
     </div>
@@ -187,7 +302,7 @@ Docker images.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Combust Documentation","level":"1.1","depth":1,"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-01-23T05:31:37.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-01-23T05:32:01.156Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Combust Cloud","level":"1.1","depth":1,"next":{"title":"Combust Public Cloud","level":"1.2","depth":1,"path":"public-cloud/index.md","ref":"public-cloud/index.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-02-07T19:37:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-07T19:37:40.400Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

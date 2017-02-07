@@ -1,0 +1,400 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Combust Public Cloud · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../private-cloud/" />
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Combust Cloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Combust Public Cloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../private-cloud/">
+            
+                <a href="../private-cloud/">
+            
+                    
+                    Combust Private Cloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../clients/">
+            
+                <a href="../clients/">
+            
+                    
+                    Client Libraries
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../clients/scala.html">
+            
+                <a href="../clients/scala.html">
+            
+                    
+                    Scala
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../clients/python.html">
+            
+                <a href="../clients/python.html">
+            
+                    
+                    Python
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Combust Public Cloud</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="public-cloud">Public Cloud</h1>
+<p>Take the Combust Cloud for a spin in 3 easy steps:</p>
+<h3 id="step-1-register">Step 1: Register</h3>
+<p>Register for Combust Cloud at combust.ml. Once registered, you will receive your <code>container name</code> and <code>platform token</code> - you&apos;ll need both to deploy your ML pipeline as a service.</p>
+<h3 id="step-2-train-a-model">Step 2: Train a Model</h3>
+<p>Train your own ML Pipeline or use the <a href="https://github.com/combust/mleap-demo/blob/master/notebooks/airbnb-price-regression.ipynb" target="_blank">MLeap AirBnb demo</a> to train either a linear or a random forrest regression.</p>
+<h4 id="sparkpyspark">Spark/PySpark</h4>
+<p>If you are training your own Spark or PySpark pipeline, refer to the AirBnb demo on how to create a <code>SparkBundleContext</code> and serialize your pipeline to an MLeap Bundle. After fitting your pipeline, you will have to:</p>
+<pre><code class="lang-scala"><span class="hljs-comment">// First create a Spark Bundle Context</span>
+<span class="hljs-keyword">val</span> sbc = <span class="hljs-type">SparkBundleContext</span>()
+
+<span class="hljs-comment">// Second serialize your pipeline (sparkPipelineLr) to an MLeap Bundle</span>
+<span class="hljs-keyword">for</span>(bf &lt;- managed(<span class="hljs-type">BundleFile</span>(<span class="hljs-string">&quot;jar:file:/tmp/my.model.lr.zip&quot;</span>))) {
+        sparkPipelineLr.writeBundle.save(bf)(sbc).get
+  }
+
+<span class="hljs-comment">// Third, .deploy() to your private sandbox</span>
+{     
+    <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">val</span> context = sbc
+    <span class="hljs-type">Await</span>.result(sparkPipelineLr.deploy(<span class="hljs-string">&quot;http://models.combust.ml:65327&quot;</span>, <span class="hljs-string">&quot;my_username&quot;</span>, <span class="hljs-string">&quot;my_model_lr&quot;</span>, platform_token), <span class="hljs-number">10.</span>seconds)
+}
+</code></pre>
+<h4 id="scikit-learn">Scikit-Learn</h4>
+<p>You can train your own Scikit-Learn Pipeline or refer to the python version of the AirBnb demo. After fitting your ML Pipeline, all you have to do is call <code>.deploy()</code>:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># model_pipeline is a Pipeline made up of Feature Transformers and an Estimator</span>
+model_pipeline.fit(X_train, y_train)
+
+// .deploy() to your private sandbox
+model_pipeline.deploy(<span class="hljs-string">&quot;http://models.combust.ml:65327&quot;</span>, <span class="hljs-string">&quot;my_username&quot;</span>, <span class="hljs-string">&quot;my_model_lr&quot;</span>, platform_token)
+</code></pre>
+<h3 id="step-3-query-your-service">Step 3: Query Your Service</h3>
+<p>The first thing you&apos;ll need is a LeapFrame, which contains the schema and your data. If you are following the AirBnb demo, you can get the <a href="https://s3-us-west-2.amazonaws.com/mleap-demo/frame.json" target="_blank">LeapFrame</a> from our S3 bucket.
+We also have client libraries available - read more about them <a href="clients/index">here</a>.</p>
+<p>Here is what a LeapFrame looks like:</p>
+<pre><code class="lang-json">{
+  <span class="hljs-string">&quot;schema&quot;</span>: {
+    <span class="hljs-string">&quot;fields&quot;</span>: [{
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;state&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;bathrooms&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;square_feet&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;bedrooms&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;security_deposit&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;cleaning_fee&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;extra_people&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;number_of_reviews&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;review_scores_rating&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;double&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;room_type&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;host_is_superhost&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;cancellation_policy&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }, {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;instant_bookable&quot;</span>,
+      <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }]
+  },
+  <span class="hljs-string">&quot;rows&quot;</span>: [[<span class="hljs-string">&quot;NY&quot;</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">1250.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">50.0</span>, <span class="hljs-number">30.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">56.0</span>, <span class="hljs-number">90.0</span>, <span class="hljs-string">&quot;Entire home/apt&quot;</span>, <span class="hljs-string">&quot;1.0&quot;</span>, <span class="hljs-string">&quot;strict&quot;</span>, <span class="hljs-string">&quot;1.0&quot;</span>]]
+}
+</code></pre>
+<p>Then query using either curl, scala or python:</p>
+<p>cURL:</p>
+<pre><code class="lang-bash">curl
+</code></pre>
+<p>scala</p>
+<pre><code class="lang-scala"><span class="hljs-comment">// Initialize the client</span>
+<span class="hljs-keyword">val</span> client = ml.combust.model.client.<span class="hljs-type">Client</span>(<span class="hljs-string">&quot;http://localhost:65327&quot;</span>)
+
+<span class="hljs-comment">// Generate the LeapFrame</span>
+<span class="hljs-keyword">val</span> s = scala.io.<span class="hljs-type">Source</span>.fromURL(<span class="hljs-string">&quot;https://s3-us-west-2.amazonaws.com/mleap-demo/frame.json&quot;</span>).mkString
+<span class="hljs-keyword">val</span> bytes = s.getBytes(<span class="hljs-string">&quot;UTF-8&quot;</span>)
+<span class="hljs-keyword">var</span> leapFrame = <span class="hljs-type">FrameReader</span>(<span class="hljs-string">&quot;ml.combust.mleap.json&quot;</span>).fromBytes(bytes).get
+
+<span class="hljs-comment">// Query your service</span>
+<span class="hljs-keyword">val</span> result = <span class="hljs-type">Await</span>.result(client.transform(<span class="hljs-type">TransformRequest</span>().withUsername(<span class="hljs-string">&quot;my_username&quot;</span>).withModelId(<span class="hljs-string">&quot;my_model_lr&quot;</span>).withFrame(leapFrame)), <span class="hljs-number">10.</span>seconds)
+<span class="hljs-keyword">val</span> leapFrameFromServer = result.frame
+</code></pre>
+<pre><code class="lang-python">
+
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Combust Cloud">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../private-cloud/" class="navigation navigation-next " aria-label="Next page: Combust Private Cloud">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Combust Public Cloud","level":"1.2","depth":1,"next":{"title":"Combust Private Cloud","level":"1.3","depth":1,"path":"private-cloud/index.md","ref":"private-cloud/index.md","articles":[]},"previous":{"title":"Combust Cloud","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"public-cloud/index.md","mtime":"2017-02-07T19:37:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-07T19:37:40.400Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
